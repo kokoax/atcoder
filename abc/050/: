@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+#define MOD 1000000007
+
+typedef long long ll;
+
+ll powLL( ll a, ll b ){
+  ll i;
+  ll count = b;
+  for( i = 0; i < a; i++ ){
+    count *= b;
+  }
+  return count;
+}
+
+int main( void ){
+  int i;
+  ll N;
+  int A[100001] = {0};
+  int tmp;
+  int flg = 0;
+
+  scanf( "%lld", &N );
+  for( i = 0; i < N; i++ ){
+    scanf( "%d", &tmp );
+    A[tmp]++;
+  }
+
+  if( N%2 == 1 && A[0] == 1 ){
+    for( i = 0; i < N-1; i+=2 ){
+      if( A[i] != 2 || A[i+1] != 0 ){
+        flg = 1;
+        break;
+      }
+    }
+  }else if( N%2 == 0 && A[1] == 2 ){
+    for( i = 1; i < N-1; i+=2 ){
+      if( A[i] != 2 || A[i-1] != 0 ){
+        flg = 1;
+        break;
+      }
+    }
+  }else{
+    flg = 1;
+  }
+
+  printf( "%d\n", flg == 0 ? powLL(2,N/2)%MOD : 0 );
+
+  return 0;
+}
+
